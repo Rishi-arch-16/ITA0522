@@ -1,0 +1,31 @@
+
+import cv2
+import numpy as np
+
+image = cv2.imread("image2.jpg")
+
+if image is None:
+    print("Main image not loaded")
+    exit()
+
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+template = cv2.imread("watchcrop.jpg", 0)
+
+if template is None:
+    print("Template image not loaded")
+    exit()
+
+w, h = template.shape[::-1]
+
+result = cv2.matchTemplate(gray, template, cv2.TM_CCOEFF_NORMED)
+
+threshold = 0.7
+locations = np.where(result >= threshold)
+
+for pt in zip(*locations[::-1]):
+    cv2.rectangle(image, pt, (pt[0] + w, pt[1] + h), (0, 255, 0), 2)
+
+cv2.imshow("Detected Watch", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
