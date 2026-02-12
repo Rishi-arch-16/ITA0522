@@ -1,0 +1,12 @@
+import cv2
+
+image = cv2.imread("image1.jpg")
+
+roi = cv2.selectROI("Select ROI", image, False)
+x, y, w, h = roi
+
+cropped = image[y:y+h, x:x+w]
+
+cv2.imshow("Cropped", cropped)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
