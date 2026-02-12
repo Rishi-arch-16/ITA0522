@@ -1,0 +1,24 @@
+import cv2
+
+# Step 1: Read image
+image = cv2.imread("image1.jpg")
+
+if image is None:
+    print("Image not loaded")
+    exit()
+
+# Step 2: Resize to smaller size (scale down)
+small = cv2.resize(image, None, fx=0.5, fy=0.5, 
+                   interpolation=cv2.INTER_AREA)
+
+# Step 3: Resize to larger size (scale up)
+large = cv2.resize(image, None, fx=2, fy=2, 
+                   interpolation=cv2.INTER_CUBIC)
+
+# Step 4: Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Smaller Image", small)
+cv2.imshow("Larger Image", large)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
