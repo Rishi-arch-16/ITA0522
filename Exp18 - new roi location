@@ -1,0 +1,27 @@
+import cv2
+
+# Load image
+image = cv2.imread("image1.jpg")
+
+if image is None:
+    print("Image not loaded")
+    exit()
+
+# Select ROI manually (x, y, width, height)
+x, y, w, h = 100, 100, 200, 200
+
+# Crop ROI
+roi = image[y:y+h, x:x+w]
+
+# Copy ROI
+roi_copy = roi.copy()
+
+# Paste ROI to new location
+image[300:300+h, 300:300+w] = roi_copy
+
+# Display results
+cv2.imshow("Original with ROI Pasted", image)
+cv2.imshow("Cropped ROI", roi)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
